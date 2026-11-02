@@ -1,0 +1,400 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated customer or admin profile with shipping and payment preferences.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Firebase Auth UID of the user."
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Full display name of the user."
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "Email address of the user."
+        },
+        "phone": {
+          "type": "string",
+          "description": "Contact phone number for order delivery and JazzCash/EasyPaisa."
+        },
+        "shippingAddress": {
+          "type": "string",
+          "description": "Street shipping address."
+        },
+        "city": {
+          "type": "string",
+          "description": "Delivery city."
+        },
+        "preferredPayment": {
+          "type": "string",
+          "enum": ["Cash on Delivery", "JazzCash", "EasyPaisa", "Bank Transfer", "Online Card"],
+          "description": "Default checkout payment method."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": ["userId", "displayName", "email", "createdAt", "updatedAt"]
+    },
+    "CartItem": {
+      "title": "CartItem",
+      "description": "An item in a user's shopping cart subcollection.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "productId": {
+          "type": "string",
+          "description": "Referenced product ID."
+        },
+        "productTitle": {
+          "type": "string",
+          "description": "Denormalized product title."
+        },
+        "productImage": {
+          "type": "string",
+          "description": "Denormalized product image URL."
+        },
+        "category": {
+          "type": "string",
+          "description": "Product category."
+        },
+        "unitPrice": {
+          "type": "number",
+          "description": "Unit price at time of adding to cart."
+        },
+        "quantity": {
+          "type": "integer",
+          "description": "Quantity between 1 and 99."
+        },
+        "selectedSize": {
+          "type": "string",
+          "description": "Optional selected size or variant."
+        },
+        "selectedColor": {
+          "type": "string",
+          "description": "Optional selected color."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when added (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": ["userId", "productId", "productTitle", "productImage", "category", "unitPrice", "quantity", "createdAt", "updatedAt"]
+    },
+    "WishlistItem": {
+      "title": "WishlistItem",
+      "description": "A saved product in a user's wishlist subcollection.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Owner Firebase Auth UID."
+        },
+        "productId": {
+          "type": "string",
+          "description": "Referenced product ID."
+        },
+        "productTitle": {
+          "type": "string",
+          "description": "Denormalized product title."
+        },
+        "productImage": {
+          "type": "string",
+          "description": "Denormalized product image URL."
+        },
+        "category": {
+          "type": "string",
+          "description": "Product category."
+        },
+        "price": {
+          "type": "number",
+          "description": "Current product price."
+        },
+        "originalPrice": {
+          "type": "number",
+          "description": "Original strike-through price."
+        },
+        "brand": {
+          "type": "string",
+          "description": "Product brand name."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when saved (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": ["userId", "productId", "productTitle", "productImage", "category", "price", "originalPrice", "brand", "createdAt", "updatedAt"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Catalog product item managed via Admin Dashboard and browsed by shoppers.",
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "Product name."
+        },
+        "description": {
+          "type": "string",
+          "description": "Detailed product description and specifications."
+        },
+        "category": {
+          "type": "string",
+          "enum": ["Electronics", "Fashion", "Shoes", "Beauty", "Accessories"],
+          "description": "Product category."
+        },
+        "price": {
+          "type": "number",
+          "description": "Selling price in PKR."
+        },
+        "originalPrice": {
+          "type": "number",
+          "description": "Original MSRP price in PKR."
+        },
+        "stock": {
+          "type": "integer",
+          "description": "Available inventory stock count."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "Product image URL."
+        },
+        "featured": {
+          "type": "boolean",
+          "description": "Whether featured on the home screen."
+        },
+        "ratingAvg": {
+          "type": "number",
+          "description": "Average customer rating (0 to 5)."
+        },
+        "reviewCount": {
+          "type": "integer",
+          "description": "Total number of customer reviews."
+        },
+        "brand": {
+          "type": "string",
+          "description": "Brand or manufacturer name."
+        },
+        "sellerId": {
+          "type": "string",
+          "description": "UID of the seller/admin who created the product."
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Whether the product is active and visible in the catalog."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": ["title", "description", "category", "price", "originalPrice", "stock", "imageUrl", "featured", "ratingAvg", "reviewCount", "brand", "sellerId", "isActive", "createdAt", "updatedAt"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order with payment method, shipping details, and tracking status.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Customer Firebase Auth UID."
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Recipient full name."
+        },
+        "customerPhone": {
+          "type": "string",
+          "description": "Recipient phone number."
+        },
+        "shippingAddress": {
+          "type": "string",
+          "description": "Delivery street address."
+        },
+        "city": {
+          "type": "string",
+          "description": "Delivery city."
+        },
+        "paymentMethod": {
+          "type": "string",
+          "enum": ["Cash on Delivery", "JazzCash", "EasyPaisa", "Bank Transfer", "Online Card"],
+          "description": "Selected payment method."
+        },
+        "paymentAccountRef": {
+          "type": "string",
+          "description": "Wallet mobile number, IBAN reference, or masked card reference."
+        },
+        "paymentStatus": {
+          "type": "string",
+          "enum": ["Pending", "Paid", "Verified", "Refunded"],
+          "description": "Current payment verification status."
+        },
+        "orderStatus": {
+          "type": "string",
+          "enum": ["Placed", "Confirmed", "Packed", "Shipped", "Out for Delivery", "Delivered", "Cancelled"],
+          "description": "Current fulfillment and tracking status."
+        },
+        "trackingNumber": {
+          "type": "string",
+          "description": "Courier tracking code."
+        },
+        "itemsSummary": {
+          "type": "string",
+          "description": "Summary of ordered items and quantities."
+        },
+        "itemCount": {
+          "type": "integer",
+          "description": "Total number of units in the order."
+        },
+        "subtotal": {
+          "type": "number",
+          "description": "Order subtotal before delivery and discount."
+        },
+        "deliveryFee": {
+          "type": "number",
+          "description": "Shipping fee."
+        },
+        "discountAmount": {
+          "type": "number",
+          "description": "Applied promo discount."
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "Final payable amount."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when placed (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": ["userId", "customerName", "customerPhone", "shippingAddress", "city", "paymentMethod", "paymentAccountRef", "paymentStatus", "orderStatus", "trackingNumber", "itemsSummary", "itemCount", "subtotal", "deliveryFee", "discountAmount", "totalAmount", "createdAt", "updatedAt"]
+    },
+    "Review": {
+      "title": "Review",
+      "description": "Customer rating and review for a product.",
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "description": "ID of the reviewed product."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Author Firebase Auth UID."
+        },
+        "userName": {
+          "type": "string",
+          "description": "Author display name."
+        },
+        "rating": {
+          "type": "integer",
+          "description": "Star rating from 1 to 5."
+        },
+        "comment": {
+          "type": "string",
+          "description": "Review text."
+        },
+        "verifiedPurchase": {
+          "type": "boolean",
+          "description": "Whether the reviewer purchased the item."
+        },
+        "isPublic": {
+          "type": "boolean",
+          "description": "Whether the review is visible to shoppers."
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when created (FieldValue.serverTimestamp())."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Server timestamp when updated (FieldValue.serverTimestamp())."
+        }
+      },
+      "required": ["productId", "userId", "userName", "rating", "comment", "verifiedPurchase", "isPublic", "createdAt", "updatedAt"]
+    },
+    "AdminUser": {
+      "title": "AdminUser",
+      "description": "Marker document for elevated administrator privileges.",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Admin UID."
+        }
+      },
+      "required": ["userId"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "User profile and saved checkout settings."
+    },
+    "/users/{userId}/cart/{cartItemId}": {
+      "schema": { "$ref": "#/entities/CartItem" },
+      "description": "User shopping cart items."
+    },
+    "/users/{userId}/wishlist/{productId}": {
+      "schema": { "$ref": "#/entities/WishlistItem" },
+      "description": "User wishlist items."
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Store product catalog."
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Customer orders and tracking records."
+    },
+    "/reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Product customer reviews and ratings."
+    },
+    "/admins/{adminId}": {
+      "schema": { "$ref": "#/entities/AdminUser" },
+      "description": "Trusted administrator lookup table."
+    }
+  }
+}

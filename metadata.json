@@ -1,0 +1,6 @@
+{
+  "name": "BazaarPK",
+  "description": "Modern online shopping and e-commerce marketplace with product categories, cart, wishlist, order tracking, local payments (JazzCash, EasyPaisa, COD, Bank Transfer), and admin dashboard.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
